@@ -3,6 +3,9 @@ import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTT
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
+declare var mtcaptcha;
+
+
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem('users')) || [];
 
@@ -40,7 +43,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             const { username, password } = body;
             const user = users.find(x => x.username === username && x.password === password);
             const validToken = mtcaptcha.getVerifiedToken();
-            if (!validToken) return error('captcha should be solved');
+            if (!validToken) return error('Please complete the challenge.');
             if (!user) return error('Username or password is incorrect');
             return ok({
                 id: user.id,
@@ -58,7 +61,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 return error('Username "' + user.username + '" is already taken')
             }
             const validToken = mtcaptcha.getVerifiedToken();
-            if (!validToken) return error('captcha should be solved');
+            if (!validToken) return error('Please complete the challenge.');
 
             user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
             users.push(user);

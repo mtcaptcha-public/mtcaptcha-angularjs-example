@@ -4,6 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AlertService, UserService, AuthenticationService } from '@/_services';
+import { RenderCaptcha } from '@/_helpers/render-captcha';
+import { mtcaptchaConfig } from '@/env';
+
+declare var mtcaptcha;
 
 @Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {
@@ -16,7 +20,9 @@ export class RegisterComponent implements OnInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private userService: UserService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private renderCaptcha:RenderCaptcha
+
     ) {
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
@@ -25,15 +31,23 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.renderCaptcha.removeJS()
         this.registerForm = this.formBuilder.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             username: ['', Validators.required],
             password: ['', [Validators.required, Validators.minLength(6)]]
         });
-        this.renderCaptcha();
-        mtcaptcha.renderUI("login-captcha",mtcaptchaConfig);
-        console.log("abc");
+
+        this.renderCaptcha.renderCaptcha();
+
+        var loadCaptcha = setInterval(() => {
+            if (mtcaptcha) {
+                mtcaptcha.renderUI("register-captcha", mtcaptchaConfig);
+                clearInterval(loadCaptcha);
+            }
+        }, 1000);
+
     }
 
     // convenience getter for easy access to form fields
@@ -63,28 +77,4 @@ export class RegisterComponent implements OnInit {
                     this.loading = false;
                 });
     }
-    renderCaptcha(){
-        var mtcaptchaConfig = {
-          "sitekey": "MTPublic-Pgv2FUrNY", // Get tie site key from Sites page of MTCaptcha admin site 
-          "widgetSize": "mini",
-          "theme": "overcast",
-          "render": "explicit",
-          "renderQueue": []
-      };
-        var mt_service = document.createElement('script');
-        mt_service.async = true;
-        mt_service.src = 'https://qa-service.sadtron.com/mtcv1/client/mtcaptcha.min.js';
-        (
-          document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]
-        ).appendChild(mt_service);
-        var mt_service2 = document.createElement('script');
-        mt_service2.async = true;
-        mt_service2.src = 'https://qa-service.sadtron.com/mtcv1/client/mtcaptcha.min.js';
-        (
-          document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]
-        ).appendChild(mt_service2);
-        var mtcaptchaConfiguration = document.createElement('script');
-        mtcaptchaConfiguration.text = "var mtcaptchaConfig = "+ JSON.stringify(mtcaptchaConfig);
-        ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mtcaptchaConfiguration);
-        }
 }
