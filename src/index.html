@@ -1,14 +1,42 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <base href="/" />
     <title>Angular 8 MTCaptcha Sample Implementation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- bootstrap css -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <script> var mtcaptchaConfig = {
+        "sitekey": "MTPublic-Pgv2FUrNY", // Get tie site key from Sites page of MTCaptcha admin site 
+        "widgetSize": "mini",
+        "theme": "overcast",
+        "render": "explicit",
+        "renderQueue": []
+    };</script>
 </head>
+
 <body>
     <app>Loading...</app>
-</body> 
-</html>
+</body>
 
+<script>
+    (
+        function () {
+            var mt_service = document.createElement('script');
+            mt_service.async = true;
+            mt_service.src = 'https://qa-service.sadtron.com/mtcv1/client/mtcaptcha.min.js';
+            (
+                document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]
+            ).appendChild(mt_service);
+            var mt_service2 = document.createElement('script');
+            mt_service2.async = true;
+            mt_service2.src = 'https://qa-service.sadtron.com/mtcv1/client/mtcaptcha.min.js';
+            (
+                document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]
+            ).appendChild(mt_service2);
+        }
+    )();
+</script>
+
+</html>

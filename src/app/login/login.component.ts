@@ -4,11 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AlertService, AuthenticationService } from '@/_services';
-import { RenderCaptcha } from '@/_helpers/render-captcha';
-import { mtcaptchaConfig } from '@/env';
-
-declare var mtcaptcha;
-
+declare var mtcaptchaConfig;
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
@@ -23,7 +19,6 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private alertService: AlertService,
-        private renderCaptcha:RenderCaptcha
     ) {
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
@@ -32,20 +27,14 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.renderCaptcha.removeJS()
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required]
         });
-
-        this.renderCaptcha.renderCaptcha()
-
-        var loadCaptcha = setInterval(() => {
-            if (mtcaptcha) {
-                mtcaptcha.renderUI("login-captcha", mtcaptchaConfig);
-                clearInterval(loadCaptcha);
-            }
-        }, 1000);
+        console.log("abc");
+        mtcaptchaConfig.renderQueue.push('login-captcha');
+        
+        //this.mtcaptchaConfig.renderQueue.push('login-captcha');
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }

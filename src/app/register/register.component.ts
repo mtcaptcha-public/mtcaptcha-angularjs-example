@@ -4,11 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AlertService, UserService, AuthenticationService } from '@/_services';
-import { RenderCaptcha } from '@/_helpers/render-captcha';
-import { mtcaptchaConfig } from '@/env';
-
-declare var mtcaptcha;
-
+declare var mtcaptchaConfig;
 @Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
@@ -21,7 +17,6 @@ export class RegisterComponent implements OnInit {
         private authenticationService: AuthenticationService,
         private userService: UserService,
         private alertService: AlertService,
-        private renderCaptcha:RenderCaptcha
 
     ) {
         // redirect to home if already logged in
@@ -31,23 +26,14 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.renderCaptcha.removeJS()
         this.registerForm = this.formBuilder.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             username: ['', Validators.required],
             password: ['', [Validators.required, Validators.minLength(6)]]
         });
-
-        this.renderCaptcha.renderCaptcha();
-
-        var loadCaptcha = setInterval(() => {
-            if (mtcaptcha) {
-                mtcaptcha.renderUI("register-captcha", mtcaptchaConfig);
-                clearInterval(loadCaptcha);
-            }
-        }, 1000);
-
+        mtcaptchaConfig.renderQueue.push('login-captcha');
+        console.log("abc");
     }
 
     // convenience getter for easy access to form fields

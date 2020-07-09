@@ -5,10 +5,8 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
 declare var mtcaptcha;
 
-
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem('users')) || [];
-
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
