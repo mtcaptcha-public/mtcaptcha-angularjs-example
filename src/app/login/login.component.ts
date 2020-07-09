@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AlertService, AuthenticationService } from '@/_services';
+
 declare var mtcaptchaConfig;
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -11,7 +12,6 @@ export class LoginComponent implements OnInit {
     loading = false;
     submitted = false;
     returnUrl: string;
-    mtcaptchaConfig
 
     constructor(
         private formBuilder: FormBuilder,
@@ -31,10 +31,8 @@ export class LoginComponent implements OnInit {
             username: ['', Validators.required],
             password: ['', Validators.required]
         });
-        console.log("abc");
         mtcaptchaConfig.renderQueue.push('login-captcha');
         
-        //this.mtcaptchaConfig.renderQueue.push('login-captcha');
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }

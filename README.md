@@ -26,7 +26,7 @@ You can see the demo of various configuration options at https://service.mtcaptc
 
 Get the Site key and update 
 ```
-src/app/env.ts
+src/index.html
 ```
 
 Once the application is up go to 

@@ -33,7 +33,6 @@ export class RegisterComponent implements OnInit {
             password: ['', [Validators.required, Validators.minLength(6)]]
         });
         mtcaptchaConfig.renderQueue.push('register-captcha');
-        console.log("abc");
     }
 
     // convenience getter for easy access to form fields
