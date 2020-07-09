@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
             username: ['', Validators.required],
             password: ['', [Validators.required, Validators.minLength(6)]]
         });
-        mtcaptchaConfig.renderQueue.push('login-captcha');
+        mtcaptchaConfig.renderQueue.push('register-captcha');
         console.log("abc");
     }
 
