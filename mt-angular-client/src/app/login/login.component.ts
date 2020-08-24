@@ -2,16 +2,20 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-
 import { AlertService, AuthenticationService } from '@/_services';
+import { HttpClient } from '@angular/common/http';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
+declare var mtcaptcha;
 declare var mtcaptchaConfig;
+
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     loading = false;
     submitted = false;
     returnUrl: string;
+    verifiedtoken: any;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -41,26 +45,28 @@ export class LoginComponent implements OnInit {
     get f() { return this.loginForm.controls; }
 
     onSubmit() {
-        this.submitted = true;
+         this.submitted = true;
 
-        // reset alerts on submit
-        this.alertService.clear();
+         // reset alerts on submit
+            this.alertService.clear();
 
-        // stop here if form is invalid
-        if (this.loginForm.invalid) {
-            return;
-        }
+         // stop here if form is invalid
+            if (this.loginForm.invalid) {
+              return;
+            }
 
-        this.loading = true;
-        this.authenticationService.login(this.f.username.value, this.f.password.value)
-            .pipe(first())
-            .subscribe(
-                data => {
+         this.loading = true;
+         this.verifiedtoken = mtcaptcha.getVerifiedToken()
+         this.authenticationService.login(this.f.username.value, this.f.password.value, this.verifiedtoken)
+             .pipe(first())
+             .subscribe(
+                 res => {
+                    this.loading = true;
                     this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
-    }
+                 },
+                 error => {
+                    this.alertService.error(error.error.msg);
+                     this.loading = false;
+                 });
+     }
 }

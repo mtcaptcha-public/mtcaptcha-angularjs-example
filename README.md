@@ -1,18 +1,38 @@
-# angular-8-registration-login-example
+# MTCaptcha-Angular-exapmple
+Sample Implementation of MTCaptcha for  Angular
 
-MTCaptcha Angular 8 Sample Implementation
 
-## Node version supported
-upto 12.10
+## MTCaptcha Express API
 
-## MTCaptcha Angular Application 
+```
+cd mt-node-api/
+```
+
+Install Node Modules 
+
+```
+npm install
+```
+
+Start API
+```
+npm run dev
+```
+
+API will be up at http://localhost:5000/
+
+## MTCaptcha VueJS Application 
+
+```
+cd mt-angular-client
+```
 
 Install Node Modules via NPM
 ```
 npm install
 ```
 
-Start Express Application
+Start Angular Application
 
 ```
 npm start
@@ -20,13 +40,16 @@ npm start
 Application will be up at http://localhost:8080/
 
 ----
-Inorder to run the application Register your domain at MTCaptcha ( https://admin.mtcaptcha.com/)
-
-You can see the demo of various configuration options at https://service.mtcaptcha.com/mtcv1/demo/
-
+Inorder to run the application Register your domain at MTCaptcah ( https://admin.mtcaptcha.com/)
 Get the Site key and update 
 ```
-src/index.html
+mt-angular-client/src/index.html
+```
+
+Need to update Site Private key on API to do backend Captcha Validation 
+
+```
+mt-node-api/config/config.js
 ```
 
 Once the application is up go to 
@@ -34,5 +57,5 @@ http://localhost:8080/login
 
 To see login page 
 
-You can register and login 
+Test user name/password = test/test
 
