@@ -1,0 +1,10 @@
+{
+    "/checktoken": {
+      "target": "https://service.mtcaptcha.com/mtcv1/api/checktoken",
+      "secure": false,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    }
+}
