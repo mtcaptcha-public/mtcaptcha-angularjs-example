@@ -35,3 +35,4 @@ src/index.html
 Once the application is up go to 
 http://localhost:8080/login
 
+Test user name/password = test/test
