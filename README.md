@@ -1,9 +1,12 @@
-# angular-8-registration-login-example
+# angular-sample-implementation
 
-MTCaptcha Angular 8 Sample Implementation
+MTCaptcha Angular Sample Implementation
 
 ## Node version supported
-upto 12.10
+upto 14.17
+
+## Angular version supported
+upto 12.1.2
 
 ## MTCaptcha Angular Application 
 
@@ -32,7 +35,4 @@ src/index.html
 Once the application is up go to 
 http://localhost:8080/login
 
-To see login page 
-
-You can register and login 
-
+Test user name/password = test/test
