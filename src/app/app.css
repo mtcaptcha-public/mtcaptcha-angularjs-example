@@ -64,6 +64,50 @@
   font-size: 0.9em;
 }
 
+.info-banner {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.example-description {
+  color: #666;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.code-snippet {
+  background: #1f2937;
+  color: #e5e7eb;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  border-left: 4px solid #667eea;
+}
+
+.code-snippet code {
+  color: #86efac;
+  white-space: pre;
+}
+
+.token-badge {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: #f0fdf4;
+  border: 2px solid #86efac;
+  border-radius: 6px;
+  color: #065f46;
+  font-size: 0.9rem;
+  font-family: 'Courier New', monospace;
+  word-break: break-all;
+}
+
 .captcha-wrapper {
   display: flex;
   justify-content: center;

@@ -5,21 +5,173 @@
   </header>
 
   <main class="demo-main">
-    <section class="demo-section">
-      <h2>Basic MTCaptcha Component</h2>
+    <section class="info-banner">
       <p class="info-text">
         <strong>Note:</strong> Replace <code>MTPublic-YourSiteKeyHere</code> with your actual MTCaptcha sitekey in <code>app.ts</code>
       </p>
-      
+    </section>
+
+    <!-- Example 1: Standard Size (Default) -->
+    <section class="demo-section">
+      <h2>1. Standard Size (Default)</h2>
+      <p class="example-description">
+        Default configuration with standard widget size. This is the most common use case.
+      </p>
+      <div class="code-snippet">
+        <code>
+          &lt;ng-mtcaptcha [sitekey]="sitekey" [widgetSize]="'standard'"&gt;&lt;/ng-mtcaptcha&gt;
+        </code>
+      </div>
       <div class="captcha-wrapper">
         <ng-mtcaptcha 
-          [sitekey]="sitekey"
+          [sitekey]="standardConfig.sitekey"
+          [widgetSize]="standardConfig.widgetSize"
           (rendered)="onCaptchaRendered()"
-          (token)="onCaptchaToken($event)"
+          (token)="onCaptchaToken($event, 'standard')"
           (error)="onCaptchaError($event)"
           (expired)="onCaptchaExpired()">
         </ng-mtcaptcha>
       </div>
+      @if (exampleTokens()['standard']) {
+        <div class="token-badge">✅ Token: {{ exampleTokens()['standard']?.substring(0, 20) }}...</div>
+      }
+    </section>
+
+    <!-- Example 2: Mini Size -->
+    <section class="demo-section">
+      <h2>2. Mini Size</h2>
+      <p class="example-description">
+        Compact widget size perfect for smaller forms or mobile interfaces.
+      </p>
+      <div class="code-snippet">
+        <code>
+          &lt;ng-mtcaptcha [sitekey]="sitekey" [widgetSize]="'mini'"&gt;&lt;/ng-mtcaptcha&gt;
+        </code>
+      </div>
+      <div class="captcha-wrapper">
+        <ng-mtcaptcha 
+          [sitekey]="miniConfig.sitekey"
+          [widgetSize]="miniConfig.widgetSize"
+          (token)="onCaptchaToken($event, 'mini')"
+          (error)="onCaptchaError($event)">
+        </ng-mtcaptcha>
+      </div>
+      @if (exampleTokens()['mini']) {
+        <div class="token-badge">✅ Token: {{ exampleTokens()['mini']?.substring(0, 20) }}...</div>
+      }
+    </section>
+
+    <!-- Example 3: Custom Language Text -->
+    <section class="demo-section">
+      <h2>3. Custom Language Text</h2>
+      <p class="example-description">
+        Customize button labels and messages to match your application's language or branding.
+      </p>
+      <div class="code-snippet">
+        <code>
+          &lt;ng-mtcaptcha 
+            [sitekey]="sitekey"
+            [customLangText]="customLangText"&gt;
+          &lt;/ng-mtcaptcha&gt;
+        </code>
+      </div>
+      <div class="captcha-wrapper">
+        <ng-mtcaptcha 
+          [sitekey]="customTextConfig.sitekey"
+          [widgetSize]="customTextConfig.widgetSize"
+          [customLangText]="customTextConfig.customLangText"
+          (token)="onCaptchaToken($event, 'customText')"
+          (error)="onCaptchaError($event)">
+        </ng-mtcaptcha>
+      </div>
+      @if (exampleTokens()['customText']) {
+        <div class="token-badge">✅ Token: {{ exampleTokens()['customText']?.substring(0, 20) }}...</div>
+      }
+    </section>
+
+    <!-- Example 4: Custom Styling -->
+    <section class="demo-section">
+      <h2>4. Custom Styling</h2>
+      <p class="example-description">
+        Apply custom CSS styles to match your application's design theme.
+      </p>
+      <div class="code-snippet">
+        <code>
+          &lt;ng-mtcaptcha 
+            [sitekey]="sitekey"
+            [customStyle]="customStyle"&gt;
+          &lt;/ng-mtcaptcha&gt;
+        </code>
+      </div>
+      <div class="captcha-wrapper">
+        <ng-mtcaptcha 
+          [sitekey]="customStyleConfig.sitekey"
+          [widgetSize]="customStyleConfig.widgetSize"
+          [customStyle]="customStyleConfig.customStyle"
+          (token)="onCaptchaToken($event, 'customStyle')"
+          (error)="onCaptchaError($event)">
+        </ng-mtcaptcha>
+      </div>
+      @if (exampleTokens()['customStyle']) {
+        <div class="token-badge">✅ Token: {{ exampleTokens()['customStyle']?.substring(0, 20) }}...</div>
+      }
+    </section>
+
+    <!-- Example 5: Mini with Custom Text -->
+    <section class="demo-section">
+      <h2>5. Mini Size with Custom Text</h2>
+      <p class="example-description">
+        Combine mini size with custom language text for a compact, branded experience.
+      </p>
+      <div class="code-snippet">
+        <code>
+          &lt;ng-mtcaptcha 
+            [sitekey]="sitekey"
+            [widgetSize]="'mini'"
+            [customLangText]="customLangText"&gt;
+          &lt;/ng-mtcaptcha&gt;
+        </code>
+      </div>
+      <div class="captcha-wrapper">
+        <ng-mtcaptcha 
+          [sitekey]="miniCustomTextConfig.sitekey"
+          [widgetSize]="miniCustomTextConfig.widgetSize"
+          [customLangText]="miniCustomTextConfig.customLangText"
+          (token)="onCaptchaToken($event, 'miniCustom')"
+          (error)="onCaptchaError($event)">
+        </ng-mtcaptcha>
+      </div>
+      @if (exampleTokens()['miniCustom']) {
+        <div class="token-badge">✅ Token: {{ exampleTokens()['miniCustom']?.substring(0, 20) }}...</div>
+      }
+    </section>
+
+    <!-- Example 6: Theme Configuration -->
+    <section class="demo-section">
+      <h2>6. Theme Configuration</h2>
+      <p class="example-description">
+        Apply different themes to the captcha widget (light, dark, etc.).
+      </p>
+      <div class="code-snippet">
+        <code>
+          &lt;ng-mtcaptcha 
+            [sitekey]="sitekey"
+            [theme]="'light'"&gt;
+          &lt;/ng-mtcaptcha&gt;
+        </code>
+      </div>
+      <div class="captcha-wrapper">
+        <ng-mtcaptcha 
+          [sitekey]="themeConfig.sitekey"
+          [widgetSize]="themeConfig.widgetSize"
+          [theme]="themeConfig.theme"
+          (token)="onCaptchaToken($event, 'theme')"
+          (error)="onCaptchaError($event)">
+        </ng-mtcaptcha>
+      </div>
+      @if (exampleTokens()['theme']) {
+        <div class="token-badge">✅ Token: {{ exampleTokens()['theme']?.substring(0, 20) }}...</div>
+      }
     </section>
 
     <section class="status-section">
