@@ -1,0 +1,74 @@
+<div class="demo-container">
+  <header class="demo-header">
+    <h1>{{ title() }}</h1>
+    <p>Test application for ng-mtcaptcha library</p>
+  </header>
+
+  <main class="demo-main">
+    <section class="demo-section">
+      <h2>Basic MTCaptcha Component</h2>
+      <p class="info-text">
+        <strong>Note:</strong> Replace <code>MTPublic-YourSiteKeyHere</code> with your actual MTCaptcha sitekey in <code>app.ts</code>
+      </p>
+      
+      <div class="captcha-wrapper">
+        <ng-mtcaptcha 
+          [sitekey]="sitekey"
+          (rendered)="onCaptchaRendered()"
+          (token)="onCaptchaToken($event)"
+          (error)="onCaptchaError($event)"
+          (expired)="onCaptchaExpired()">
+        </ng-mtcaptcha>
+      </div>
+    </section>
+
+    <section class="status-section">
+      <h2>Status</h2>
+      <div class="status-grid">
+        <div class="status-item" [class.success]="isRendered()">
+          <span class="status-label">Rendered:</span>
+          <span class="status-value">{{ isRendered() ? '✅ Yes' : '⏳ No' }}</span>
+        </div>
+        
+        <div class="status-item" [class.error]="hasError()">
+          <span class="status-label">Error:</span>
+          <span class="status-value">{{ hasError() ? '❌ ' + errorMessage() : '✅ None' }}</span>
+        </div>
+        
+        <div class="status-item" [class.success]="captchaToken()">
+          <span class="status-label">Token:</span>
+          <span class="status-value">{{ captchaToken() ? '✅ Received' : '⏳ Pending' }}</span>
+        </div>
+        
+        <div class="status-item" [class.warning]="isExpired()">
+          <span class="status-label">Expired:</span>
+          <span class="status-value">{{ isExpired() ? '⏰ Yes' : '✅ No' }}</span>
+        </div>
+      </div>
+      
+      @if (captchaToken()) {
+        <div class="token-display">
+          <strong>Token:</strong>
+          <code>{{ captchaToken() }}</code>
+        </div>
+      }
+      
+      <button class="reset-btn" (click)="resetStatus()">Reset Status</button>
+    </section>
+
+    <section class="instructions-section">
+      <h2>Testing Checklist</h2>
+      <ul class="checklist">
+        <li [class.completed]="isRendered()">✅ Captcha widget appears on page</li>
+        <li [class.completed]="isRendered()">✅ <code>rendered</code> event fires</li>
+        <li [class.completed]="!hasError()">✅ No error events</li>
+        <li [class.completed]="captchaToken()">✅ <code>token</code> event fires when solved</li>
+        <li>✅ Check browser console for logs</li>
+        <li>✅ Verify MTCaptcha script loads (Network tab)</li>
+        <li>✅ Test captcha interaction (click/verify)</li>
+      </ul>
+    </section>
+  </main>
+</div>
+
+<router-outlet />
